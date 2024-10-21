@@ -52,7 +52,7 @@ public class AccountsPage {
 	 
 	 public ResultsPage dosearch(String searchkey) {
 		 System.out.println("SearchKey===> "+searchkey);
-		WebElement SearchEle= eleutil.WaitForElementVisibile(search, AppConstants.DEFAULT_SHORT_TIME_OUT);
+		WebElement SearchEle= eleutil.WaitForElementVisibile(search, AppConstants.DEFAULT_MEDIUM_TIME_OUT);
 		eleutil.doSendKeys(SearchEle, searchkey);
 		 eleutil.doClick(searchIcon);
 		 return new ResultsPage(driver);

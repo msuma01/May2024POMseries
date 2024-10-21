@@ -9,6 +9,11 @@ import org.testng.annotations.Test;
 
 import com.qa.opencart.base.BaseTest;
 import com.qa.opencart.constants.AppConstants;
+import com.qa.opencart.utils.ExcelUtil;
+
+import io.qameta.allure.Description;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
 
 public class AccountsPageTest extends BaseTest {
 	
@@ -51,6 +56,8 @@ public class AccountsPageTest extends BaseTest {
 		};
 	}
 	
+	@Description("search functionality test")
+	@Severity(SeverityLevel.CRITICAL)
 	@Test(dataProvider="getsearchKey")
 	public void searchCountTest(String searchKey, int searchCount) {
 		resPage=accPage.dosearch(searchKey);
@@ -70,7 +77,13 @@ public class AccountsPageTest extends BaseTest {
 		};
 	}
 	
-	@Test(dataProvider="getsearchData")
+	@DataProvider
+	public Object[][] getExcelSearchData() {
+		return ExcelUtil.getTestData(AppConstants.SEARCH_SHEET_NAME);
+		
+	}
+	
+	@Test(dataProvider="getExcelSearchData")
 	public void searchTest(String searchkey,String productName) {
 		resPage=accPage.dosearch(searchkey);
 		ProductPage=resPage.selectProduct(productName);

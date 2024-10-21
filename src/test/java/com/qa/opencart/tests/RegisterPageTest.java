@@ -6,6 +6,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.qa.opencart.base.BaseTest;
+import com.qa.opencart.constants.AppConstants;
+import com.qa.opencart.utils.ExcelUtil;
 
 public class RegisterPageTest extends BaseTest {
 	
@@ -35,7 +37,13 @@ public class RegisterPageTest extends BaseTest {
 		};
 	}
 	
-	@Test(dataProvider="registerAccount")
+	@DataProvider
+	public Object[][]  getregdata() {
+		return ExcelUtil.getTestData(AppConstants.REG_SHEET_NAME);
+			
+	}
+	
+	@Test(dataProvider="getregdata")
 	public void userRegisterTest(String Firstname, String Lastname,String Mobile, String Password,String subscribe) {
 		RegPage.userRegisteration(Firstname, Lastname, getRandomEmail(),Mobile,Password, subscribe);
 		

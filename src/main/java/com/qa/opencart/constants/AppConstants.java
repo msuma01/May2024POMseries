@@ -23,5 +23,10 @@ public class AppConstants {
 
 	public static	List<String> EXPECTED_ACC_PAGE_HEADER_LIST = List.of("My Account","My Orders","My Affiliate Account", "Newsletter");
 	
+	//*********************Sheet names **********************//
+	
+	
+	public static final String REG_SHEET_NAME = "register";
+	public static final String SEARCH_SHEET_NAME= "search";
 	
 }

@@ -1,12 +1,12 @@
 package com.qa.opencart.pages;
 
-import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import com.qa.opencart.constants.AppConstants;
 import com.qa.opencart.utils.ElementUtil;
+
+import io.qameta.allure.Step;
 
 public class LoginPage {
 	private WebDriver driver;
@@ -26,6 +26,8 @@ public class LoginPage {
 		eleutil = new ElementUtil(driver);
 	}
 	
+	@Step("getting login page title value")
+	
 	//3.Public Actions/Methods
 	public String getLoginPageTitle() {
 		
@@ -33,6 +35,8 @@ public class LoginPage {
 		System.out.println("login page title:"+title);
 		return title;
 	}
+	
+	@Step("getting login page url value")
 	public String getLoginPageURL() {
 		
 		String url=	eleutil.waitForURLContainsAndReturn(AppConstants.Login_PAGE_FRACTION_URL,AppConstants.DEFAULT_MEDIUM_TIME_OUT);
@@ -40,20 +44,24 @@ public class LoginPage {
 		return url;
 	}
 	
+	
+	@Step("checking isForgotPwdLink exist on the login page....")	
 	public boolean isforgotpwdLinkExist() {
 		return	eleutil.IsElementDisplayed(forgotPwdLink);
 	}
 	
+	@Step("checking logo exist on the login page....")
 	public boolean islogoExist() {
 		return	eleutil.IsElementDisplayed(logo);
 	}
 	
+	@Step("login with username : {0} and password: {1}")
 	public AccountsPage doLogin(String userName, String pwd) {
+		System.out.println("credentials are: Username" +userName +"Password"+  pwd);
 		
 		eleutil.WaitForElementVisibile(username, AppConstants.DEFAULT_MEDIUM_TIME_OUT).sendKeys(userName);
 		eleutil.doSendKeys(password, pwd);
 		eleutil.doClick(loginBtn);
-		
 		return new AccountsPage(driver);
 		
 	}

@@ -21,10 +21,14 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.qa.opencart.exceptions.FrameworkExcpetion;
+import com.qa.opencart.factory.DriverFactory;
+
+import io.qameta.allure.Step;
 
 public class ElementUtil {
 	private WebDriver driver;
 	private Actions act;
+	private JavaScriptUtil jsUtil;
 
 	/*
 	 * This is a constructor used to intialize the global variable
@@ -33,6 +37,7 @@ public class ElementUtil {
 	public ElementUtil(WebDriver driver) {
 		this.driver = driver;	
 		act = new Actions(driver);
+		jsUtil = new JavaScriptUtil(driver);
 	}
 
 	/*
@@ -40,7 +45,8 @@ public class ElementUtil {
 	 * 
 	 * @parameter-> locator
 	 */
-
+	
+	@Step("clicking on element using locator: {0}")
 	public void doClick(By locator) {
 		getElement(locator).click();
 	}
@@ -58,6 +64,7 @@ public class ElementUtil {
 		WaitForElementVisibile(locator, timeout).sendKeys(value);
 	}
 
+	@Step("entering value : {1} into locator: {0}")
 	public void doSendKeys(By locator, String value) {
 
 		getElement(locator).sendKeys(value);
@@ -87,7 +94,16 @@ public class ElementUtil {
 	 */
 
 	public WebElement getElement(By locator) {
-		return driver.findElement(locator);
+	WebElement element= driver.findElement(locator);
+	checkElementHighlight(element);
+	return element;
+	}
+	
+
+	private void checkElementHighlight(WebElement element) {
+		if((Boolean.parseBoolean(DriverFactory.isHighlight))) {
+			jsUtil.flash(element);
+		}
 	}
 
 	/**
@@ -523,8 +539,7 @@ public class ElementUtil {
 		doClick(level4);
 	}
 
-	// *************************************Wait
-	// Utils**********************************************//
+	// *************************************Wait Utils**********************************************//
 
 	/**
 	 * An expectation for checking that an element is present on the DOM of a page.
@@ -537,7 +552,9 @@ public class ElementUtil {
 
 	public WebElement WaitForElementPresence(By locator, int TimeOut) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TimeOut));
-		return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		WebElement element= wait.until(ExpectedConditions.presenceOfElementLocated(locator));
+		checkElementHighlight(element);
+		return element;
 
 	}
 
@@ -551,14 +568,19 @@ public class ElementUtil {
 	 * @param TimeOut
 	 * @return WebElement
 	 */
+	@Step("waiting for webelement using locator: {0} within timeout : {1}")
 	public WebElement WaitForElementVisibile(By locator, int TimeOut) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TimeOut));
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		WebElement element= wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		checkElementHighlight(element);
+		return element;
 	}
 
 	public WebElement WaitForElementVisibile(By locator, int TimeOut, int intervaltime) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TimeOut), Duration.ofSeconds(intervaltime));
-		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		WebElement element= wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		checkElementHighlight(element);
+		return element;
 	}
 	
 	
@@ -579,7 +601,9 @@ public class ElementUtil {
 			.ignoring(ElementNotInteractableException.class)
 			.withMessage("=====element is not found======" +locator);
 			
-			return	wait.until(ExpectedConditions.visibilityOfElementLocated(locator));			
+			WebElement element=	wait.until(ExpectedConditions.visibilityOfElementLocated(locator));	
+			checkElementHighlight(element);
+			return element;
 
 		  
 	}
@@ -593,6 +617,7 @@ public class ElementUtil {
 	public void WaitForElementAndClick(By locator, int TimeOut) {
 		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TimeOut));
 		wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
+		
 	}
 
 	/**

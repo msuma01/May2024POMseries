@@ -73,8 +73,8 @@ public class LoginPageTest extends BaseTest{
 		Assert.assertEquals(accPage.getAccountsPageTitle(), AppConstants.Accounts_PAGE_TITLE);
 		
 	}
-	@Test(enabled = false)
-	public void naveentest() {
-		System.out.println("WIP");
-	}
+//	@Test(enabled = false)
+//	public void naveentest() {
+//		System.out.println("WIP");
+//	}
 }

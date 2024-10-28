@@ -69,7 +69,7 @@ public class LoginPageTest extends BaseTest{
 	@Description("user is able to login....")
 	@Test(priority=Integer.MAX_VALUE)
 	public void loginTest() {
-		accPage=login.doLogin(prop.getProperty("username"),System.getProperty("password"));
+		accPage=login.doLogin(prop.getProperty("username"),prop.getProperty("password"));
 		Assert.assertEquals(accPage.getAccountsPageTitle(), AppConstants.Accounts_PAGE_TITLE);
 		
 	}

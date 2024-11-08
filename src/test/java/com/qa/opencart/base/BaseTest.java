@@ -32,15 +32,17 @@ public class BaseTest {
 	protected SoftAssert softAssert;
 	
 	@Step("setup with Browser:{0} and init the properties")
-	@Parameters({"browser"})
+	@Parameters({"browser","browserversion", "testname"})
 	@BeforeTest
-	public void setup(@Optional("chrome")String browserName) {
+	public void setup(@Optional("chrome")String browserName, String browserversion, String testName) {
 		df= new DriverFactory();
 		prop=df.initProp();
 		
 		//check if browser param is coming from testNg.xml
 		if(browserName!=null) {
 			prop.setProperty("browser", browserName);
+			prop.setProperty("browserversion", browserversion);
+			prop.setProperty("testname", testName);
 		}
 		driver=df.initDriver(prop);
 		login= new LoginPage(driver);

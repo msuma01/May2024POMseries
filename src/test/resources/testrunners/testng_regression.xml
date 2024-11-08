@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 
 <suite name="OpenCart App 	TestTestNG Regression Suite"  thread-count="4"
-    parallel="tests" verbose="3">
+    parallel="tests" verbose="5">
     
     <listeners>
 		<listener
@@ -16,29 +16,37 @@
 	
 	<test name="Login PageTest">
 	<parameter name="browser" value="chrome" />
+	<parameter name="browserversion" value="123.0" />
+	<parameter name="testname" value="Login PageTest" />
 		<classes>
 			<class name="com.qa.opencart.tests.LoginPageTest" />
 		</classes>
 	</test>
 
 	<test name="Accounts PageTest">
-	<parameter name="browser" value="firefox" />
+	<parameter name="browser" value="chrome" />
+	<parameter name="browserversion" value="113.0" />
+	<parameter name="testname" value="Accounts PageTest" />
 		<classes>
 			<class name="com.qa.opencart.tests.AccountsPageTest" />
 		</classes>
 	</test>
-	<!--<test name="ProductInfo PageTest">
-	<parameter name="browser" value="edge" />
+	<test name="ProductInfo PageTest">
+	<parameter name="browser" value="firefox" />
+	<parameter name="browserversion" value="105.0" />
+	<parameter name="testname" value="ProductInfo PageTest" />
 		<classes>
 			<class name="com.qa.opencart.tests.ProductInfoPageTest" />
 		</classes>
 	</test>
-	--><!--
+	
 	<test name="FillRegister PageTest">
-	<parameter name="browser" value="edge" />
+	<parameter name="browser" value="chrome" />
+	<parameter name="browserversion" value="125.0" />
+	<parameter name="testname" value="FillRegister PageTest" />
 		<classes>
 			<class name="com.qa.opencart.tests.RegisterPageTest" />
 		</classes>
-	</test>-->
+	</test>
 	
 </suite>
